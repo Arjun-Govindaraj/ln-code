@@ -1,0 +1,337 @@
+/* =========================================================
+   1. GLOBAL THEME VARIABLES & RESET
+   ========================================================= */
+:root {
+  --bg-color: #0b1329;
+  --card-bg: #151e38;
+  --text-color: #ffffff;
+  --subtext-color: #94a3b8;
+  --border-color: #2a3756;
+  --btn-bg: #06b6d4;      /* Bright Cyan */
+  --btn-text: #020617;     /* Dark contrast text */
+  --option-bg: #1e293b;
+}
+
+[data-theme='light'] {
+  --bg-color: #f1f5f9;
+  --card-bg: #ffffff;
+  --text-color: #0f172a;
+  --subtext-color: #475569;
+  --border-color: #cbd5e1;
+  --btn-bg: #0891b2;      /* Medium Cyan for light mode */
+  --btn-text: #ffffff;
+  --option-bg: #e2e8f0;
+}
+
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  transition: background 0.25s ease, color 0.25s ease; 
+}
+
+body { 
+  font-family: 'Poppins', Arial, sans-serif; 
+  background: var(--bg-color); 
+  color: var(--text-color); 
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  max-width: 850px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1;
+}
+
+/* =========================================================
+   2. NAVBAR STYLING (LN CODE BRANDING)
+   ========================================================= */
+.navbar-wrapper {
+  width: 100%;
+  background: var(--bg-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  max-width: 850px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-links-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 13.5px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--btn-bg);
+  background: rgba(6, 182, 212, 0.1);
+}
+
+.active-nav {
+  color: var(--btn-bg) !important;
+  background: rgba(6, 182, 212, 0.15) !important;
+  border: 1px solid var(--btn-bg);
+  font-weight: 700 !important;
+}
+
+.theme-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 5px 11px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.logout-nav-btn, .login-nav-btn {
+  padding: 5px 12px !important;
+  font-size: 13px !important;
+  text-decoration: none;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.mobile-hamburger-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* MOBILE RESPONSIVE MEDIA QUERY */
+@media (max-width: 850px) {
+  .navbar-container {
+    padding: 16px 20px;
+    justify-content: space-between;
+  }
+
+  .mobile-hamburger-btn {
+    display: block;
+  }
+
+  .nav-links-group {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    padding: 20px;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-links-group.mobile-open {
+    display: flex;
+    animation: pageSlideIn 0.3s ease-out forwards;
+  }
+
+  .nav-link, .theme-btn, .logout-nav-btn, .login-nav-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* =========================================================
+   3. CARDS, FORM ELEMENTS & BUTTONS
+   ========================================================= */
+.card { 
+  background: var(--card-bg); 
+  border-radius: 16px; 
+  padding: 30px; 
+  margin-top: 20px; 
+  text-align: center; 
+  border: 1px solid var(--border-color); 
+  width: 100%;
+}
+
+.btn { 
+  background: var(--btn-bg); 
+  color: var(--btn-text); 
+  padding: 10px 18px; 
+  border: none; 
+  border-radius: 8px; 
+  font-weight: bold; 
+  cursor: pointer; 
+  margin: 5px; 
+}
+
+.input-group { margin-bottom: 15px; text-align: left; }
+.input-group label { display: block; margin-bottom: 5px; color: var(--subtext-color); }
+.input-group input { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); }
+
+.options { display: grid; gap: 12px; margin-top: 20px; }
+.option { width: 100%; text-align: left; padding: 15px; background: var(--option-bg); color: var(--text-color); border: 2px solid transparent; border-radius: 10px; cursor: pointer; font-size: 16px; }
+.option.correct { background: #166534; color: #fff; border-color: #22c55e; }
+.option.wrong { background: #991b1b; color: #fff; border-color: #ef4444; }
+
+.explanation { margin-top: 20px; padding: 15px; background: var(--bg-color); border-left: 4px solid var(--btn-bg); border-radius: 8px; text-align: left; }
+.code { background: #020617; border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; text-align: left; margin: 15px 0; color: #67e8f9; font-family: monospace; }
+.timer { font-size: 18px; font-weight: bold; color: #ef4444; }
+.history-table { width: 100%; border-collapse: collapse; margin-top: 20px; text-align: left; }
+.history-table th, .history-table td { padding: 12px; border-bottom: 1px solid var(--border-color); }
+
+/* =========================================================
+   4. ANIMATIONS & BRAND GRADIENT (CYAN TO PURPLE)
+   ========================================================= */
+@keyframes cartoonBounce {
+  0% { opacity: 0; transform: scale(0.92) translateY(30px); }
+  60% { transform: scale(1.02) translateY(-4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes pageSlideIn {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cartoonWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-8deg) scale(1.08); }
+  40% { transform: rotate(8deg) scale(1.08); }
+  60% { transform: rotate(-4deg) scale(1.04); }
+  80% { transform: rotate(4deg) scale(1.04); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.card, .container, .dashboard-container {
+  animation: cartoonBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+}
+
+.btn {
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.btn:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.96) !important;
+}
+
+.badge-item {
+  animation: cartoonBounce 0.4s ease forwards;
+  transition: transform 0.25s ease;
+  display: inline-block;
+}
+
+.badge-item:hover {
+  animation: cartoonWiggle 0.5s ease-in-out forwards;
+  cursor: pointer;
+}
+
+/* Gradient matching the Ln Code logo */
+.animated-title {
+  background: linear-gradient(-45deg, #00d2ff, #3a7bd5, #9d4edd, #c77dff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 5s ease infinite;
+}
+
+/* =========================================================
+   5. SINGLE-PAGE PRINT EXPORT FOR CERTIFICATES
+   ========================================================= */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0; /* Prevents 2nd page overflow */
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+  
+  #certificate-frame, 
+  #certificate-frame * {
+    visibility: visible !important;
+  }
+
+  #certificate-frame {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90% !important;
+    max-width: 750px !important;
+    border: 4px solid #06b6d4 !important;
+    box-shadow: none !important;
+    background: #0b1329 !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Block community chat widgets, floating triggers, and navbars */
+  .navbar-wrapper,
+  .no-print,
+  .chat-box, 
+  .chat-container, 
+  .community-chat, 
+  iframe,
+  [class*="chat"], 
+  [id*="chat"],
+  [class*="Chat"],
+  [id*="Chat"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+}
