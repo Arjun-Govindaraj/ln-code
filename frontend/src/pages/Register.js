@@ -19,7 +19,7 @@ function Register() {
     setLoading(true);
 
     try {
-      const res = await axios.post('https://ln-code-backend.onrender.com/api/users/register', {
+      const res = await axios.post('https://ln-code-backend.onrender.com/api/auth/register', {
         username: username.trim(),
         email: email.trim(),
         password
