@@ -5,6 +5,67 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const auth = require('../middleware/authMiddleware');
 
+// @route   POST api/auth/register
+// @desc    Register new user & get token
+router.post('/register', async (req, res) => {
+  const { username, email, password } = req.body;
+
+  try {
+    if (!username || !email || !password) {
+      return res.status(400).json({ msg: 'Please enter all fields' });
+    }
+
+    // Check if user already exists
+    let existingUser = await User.findOne({ email: email.toLowerCase() });
+    if (existingUser) {
+      return res.status(400).json({ msg: 'User already exists with this email' });
+    }
+
+    // Create new user instance
+    const newUser = new User({
+      username: username.trim(),
+      email: email.toLowerCase().trim(),
+      password
+    });
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    newUser.password = await bcrypt.hash(password, salt);
+
+    await newUser.save();
+
+    // Generate JWT Payload
+    const payload = {
+      user: {
+        id: newUser.id,
+        username: newUser.username,
+        isAdmin: newUser.isAdmin || false
+      }
+    };
+
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET || 'secretKey',
+      { expiresIn: '7d' },
+      (err, token) => {
+        if (err) throw err;
+        res.json({
+          token,
+          user: {
+            id: newUser.id,
+            username: newUser.username,
+            email: newUser.email,
+            isAdmin: newUser.isAdmin || false
+          }
+        });
+      }
+    );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @route   POST api/auth/login
 // @desc    Authenticate user & get token
 router.post('/login', async (req, res) => {
